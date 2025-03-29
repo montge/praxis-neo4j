@@ -1,0 +1,111 @@
+# Environment files
+.env
+*.env
+.venv
+venv/
+ENV/
+.Python
+pyvenv.cfg
+pip-selfcheck.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+MANIFEST
+
+# Jupyter
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+.jupyter/
+jupyter_notebook_config.py
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Project specific
+**/data/
+**/logs/
+**/plugins/
+
+# Docker
+.docker/
+docker-compose.override.yml
+docker-compose.override.yaml
+
+# Monitoring-related
+**/prometheus/
+prometheus_data/
+**/grafana/
+grafana_data/
+**/jmx/
+prometheus.yml
+
+# Neo4j
+**/neo4j/data/
+**/neo4j/logs/
+**/neo4j/import/
+**/neo4j/plugins/
+neo4j-community*/
+neo4j-enterprise*/
+
+# Temporary and backup files
+*.log
+*.tmp
+*.temp
+.*.swp
+.*.swo
+**/backup/
+**/backups/
+**/_backup/
+**/_backups/
+**/bak/
+*.bak
+*.backup
+*~
+*.old
+*.orig
+*.save
+*.autosave
+*#
+.#*
+\#*#
+
+# Archive files
+*.graphml
+*.zip
+*.tar
+*.gz
+*.bz2
+*.xz
+*.lzma
+*.wim
+*.7z
+*.Z
+*.jar
+*.war
+*.ear
