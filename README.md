@@ -143,3 +143,6 @@ For other options and help:
 ```bash
 ./scripts/start.sh --help
 ```
+## Attribution
+
+This project includes code that was generated or assisted by [Cursor AI](https://cursor.ai/) tools.
