@@ -19,9 +19,7 @@ class TestNeo4jConnectionInit:
 
     def test_init_with_custom_params(self):
         """Test initialization with custom parameters."""
-        conn = Neo4jConnection(
-            uri="bolt://custom:7687", username="admin", password="secret"
-        )
+        conn = Neo4jConnection(uri="bolt://custom:7687", username="admin", password="secret")
         assert conn.uri == "bolt://custom:7687"
         assert conn.username == "admin"
         assert conn.password == "secret"
@@ -74,7 +72,7 @@ class TestNeo4jConnectionQueries:
     def test_execute_query_structure(self):
         """Test execute_query returns proper structure."""
         conn = Neo4jConnection()
-        mock_driver = Mock()
+        mock_driver = MagicMock()
         mock_session = MagicMock()
         mock_result = Mock()
 
@@ -94,7 +92,7 @@ class TestNeo4jConnectionQueries:
     def test_execute_query_with_parameters(self):
         """Test execute_query with parameters."""
         conn = Neo4jConnection()
-        mock_driver = Mock()
+        mock_driver = MagicMock()
         mock_session = MagicMock()
         mock_result = Mock()
         mock_result.__iter__ = Mock(return_value=iter([]))

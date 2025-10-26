@@ -136,8 +136,10 @@ class TestHealthCheckerWaitForReady:
         mock_driver.verify_connectivity.side_effect = ServiceUnavailable("Not ready")
         mock_conn.driver = mock_driver
 
-        # Simulate time progression
-        mock_time.side_effect = [0, 5, 11]  # start, check, timeout
+        # Simulate time progression to force timeout
+        # Mock time to always return values that exceed timeout
+        time_values = [0.0, 5.0, 11.0]  # start, during, exceeded
+        mock_time.side_effect = iter(time_values * 10)  # Repeat to handle multiple calls
 
         checker = HealthChecker(mock_conn)
         result = checker.wait_for_ready(timeout=10, interval=1)

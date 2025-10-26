@@ -21,9 +21,7 @@ pytestmark = pytest.mark.e2e
 class TestBackupRestoreWorkflow:
     """End-to-end tests for backup and restore workflow."""
 
-    def test_complete_backup_restore_cycle(
-        self, clean_neo4j, backup_manager, sample_graph_data
-    ):
+    def test_complete_backup_restore_cycle(self, clean_neo4j, backup_manager, sample_graph_data):
         """Test complete cycle: create data -> backup -> clear -> restore -> verify."""
         # Step 1: Create initial data
         clean_neo4j.execute_write(sample_graph_data["create_query"])
@@ -105,81 +103,99 @@ class TestDataManipulationWorkflow:
     def test_create_query_update_delete_workflow(self, clean_neo4j):
         """Test complete CRUD workflow."""
         # Step 1: CREATE - Insert initial data
-        clean_neo4j.execute_write("""
+        clean_neo4j.execute_write(
+            """
             CREATE (p:Person {name: 'Alice', age: 30, email: 'alice@example.com'})
             RETURN p
-        """)
+        """
+        )
 
         assert clean_neo4j.get_node_count() == 1
 
         # Step 2: READ - Query the data
-        result = clean_neo4j.execute_query("""
+        result = clean_neo4j.execute_query(
+            """
             MATCH (p:Person {name: 'Alice'})
             RETURN p.name as name, p.age as age, p.email as email
-        """)
+        """
+        )
 
         assert len(result) == 1
         assert result[0]["name"] == "Alice"
         assert result[0]["age"] == 30
 
         # Step 3: UPDATE - Modify the data
-        clean_neo4j.execute_write("""
+        clean_neo4j.execute_write(
+            """
             MATCH (p:Person {name: 'Alice'})
             SET p.age = 31
             RETURN p
-        """)
+        """
+        )
 
         # Verify update
-        result = clean_neo4j.execute_query("""
+        result = clean_neo4j.execute_query(
+            """
             MATCH (p:Person {name: 'Alice'})
             RETURN p.age as age
-        """)
+        """
+        )
         assert result[0]["age"] == 31
 
         # Step 4: DELETE - Remove the data
-        clean_neo4j.execute_write("""
+        clean_neo4j.execute_write(
+            """
             MATCH (p:Person {name: 'Alice'})
             DELETE p
-        """)
+        """
+        )
 
         assert clean_neo4j.get_node_count() == 0
 
     def test_relationship_management_workflow(self, clean_neo4j):
         """Test workflow for creating and managing relationships."""
         # Step 1: Create nodes
-        clean_neo4j.execute_write("""
+        clean_neo4j.execute_write(
+            """
             CREATE (p1:Person {name: 'Alice'})
             CREATE (p2:Person {name: 'Bob'})
             CREATE (c:Company {name: 'TechCorp'})
-        """)
+        """
+        )
 
         assert clean_neo4j.get_node_count() == 3
 
         # Step 2: Create relationships
-        clean_neo4j.execute_write("""
+        clean_neo4j.execute_write(
+            """
             MATCH (p1:Person {name: 'Alice'})
             MATCH (p2:Person {name: 'Bob'})
             MATCH (c:Company {name: 'TechCorp'})
             CREATE (p1)-[:WORKS_AT]->(c)
             CREATE (p2)-[:WORKS_AT]->(c)
             CREATE (p1)-[:KNOWS]->(p2)
-        """)
+        """
+        )
 
         assert clean_neo4j.get_relationship_count() == 3
 
         # Step 3: Query relationships
-        result = clean_neo4j.execute_query("""
+        result = clean_neo4j.execute_query(
+            """
             MATCH (p:Person)-[r:WORKS_AT]->(c:Company)
             RETURN p.name as person, type(r) as relationship, c.name as company
-        """)
+        """
+        )
 
         assert len(result) == 2
 
         # Step 4: Delete specific relationship
-        clean_neo4j.execute_write("""
+        clean_neo4j.execute_write(
+            """
             MATCH (p:Person {name: 'Alice'})-[r:KNOWS]->()
             DELETE r
-        """)
+        """
+        )
 
         assert clean_neo4j.get_relationship_count() == 2
 
@@ -187,27 +203,31 @@ class TestDataManipulationWorkflow:
         """Test workflow for inserting bulk data."""
         # Step 1: Prepare bulk data
         persons_data = [
-            {"name": f"Person{i}", "age": 20 + i, "city": "TestCity"}
-            for i in range(100)
+            {"name": f"Person{i}", "age": 20 + i, "city": "TestCity"} for i in range(100)
         ]
 
         # Step 2: Insert in batches using UNWIND
-        clean_neo4j.execute_write("""
+        clean_neo4j.execute_write(
+            """
             UNWIND $persons as person
             CREATE (p:Person)
             SET p = person
-        """, {"persons": persons_data})
+        """,
+            {"persons": persons_data},
+        )
 
         # Step 3: Verify insertion
         count = clean_neo4j.get_node_count()
         assert count == 100
 
         # Step 4: Query and verify data integrity
-        result = clean_neo4j.execute_query("""
+        result = clean_neo4j.execute_query(
+            """
             MATCH (p:Person)
             WHERE p.city = 'TestCity'
             RETURN count(p) as count
-        """)
+        """
+        )
 
         assert result[0]["count"] == 100
 
@@ -250,9 +270,7 @@ class TestErrorHandlingWorkflow:
 class TestContextManagerWorkflow:
     """End-to-end tests for context manager usage patterns."""
 
-    def test_context_manager_with_operations_workflow(
-        self, neo4j_credentials, sample_graph_data
-    ):
+    def test_context_manager_with_operations_workflow(self, neo4j_credentials, sample_graph_data):
         """Test typical workflow using context manager."""
         # Use context manager for automatic connection handling
         with Neo4jConnection(**neo4j_credentials) as conn:

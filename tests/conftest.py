@@ -41,9 +41,7 @@ def neo4j_credentials(neo4j_uri, neo4j_username, neo4j_password):
 @pytest.fixture
 def neo4j_connection(neo4j_uri, neo4j_username, neo4j_password):
     """Create a Neo4j connection (function scope - new for each test)."""
-    connection = Neo4jConnection(
-        uri=neo4j_uri, username=neo4j_username, password=neo4j_password
-    )
+    connection = Neo4jConnection(uri=neo4j_uri, username=neo4j_username, password=neo4j_password)
     yield connection
     connection.close()
 

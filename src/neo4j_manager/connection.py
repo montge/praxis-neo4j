@@ -42,9 +42,7 @@ class Neo4jConnection:
             AuthError: If authentication fails
         """
         try:
-            self._driver = GraphDatabase.driver(
-                self.uri, auth=(self.username, self.password)
-            )
+            self._driver = GraphDatabase.driver(self.uri, auth=(self.username, self.password))
             # Verify connectivity
             self._driver.verify_connectivity()
             logger.info(f"Connected to Neo4j at {self.uri}")

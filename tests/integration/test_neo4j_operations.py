@@ -91,9 +91,7 @@ class TestHealthCheckerIntegration:
         result = health_checker.check_connectivity()
         assert result is True
 
-    def test_check_apoc_available_real_database(
-        self, connected_neo4j, health_checker
-    ):
+    def test_check_apoc_available_real_database(self, connected_neo4j, health_checker):
         """Test APOC availability check with real database."""
         result = health_checker.check_apoc_available()
         # Should be True if APOC is properly configured
@@ -105,9 +103,7 @@ class TestHealthCheckerIntegration:
         assert version != "unknown"
         assert "2025" in version or "5." in version  # Neo4j version format
 
-    def test_get_database_stats_real_database(
-        self, clean_neo4j, health_checker, sample_graph_data
-    ):
+    def test_get_database_stats_real_database(self, clean_neo4j, health_checker, sample_graph_data):
         """Test getting database statistics from real database."""
         # Create sample data
         clean_neo4j.execute_write(sample_graph_data["create_query"])
@@ -191,11 +187,13 @@ class TestComplexQueries:
         clean_neo4j.execute_write(sample_graph_data["create_query"])
 
         # Pattern match: People who work at companies
-        result = clean_neo4j.execute_query("""
+        result = clean_neo4j.execute_query(
+            """
             MATCH (p:Person)-[:WORKS_AT]->(c:Company)
             RETURN p.name as person, c.name as company
             ORDER BY p.name
-        """)
+        """
+        )
 
         assert len(result) == 2
         assert result[0]["company"] == "TechCorp"
@@ -207,12 +205,14 @@ class TestComplexQueries:
         clean_neo4j.execute_write(sample_graph_data["create_query"])
 
         # Find path length
-        result = clean_neo4j.execute_query("""
+        result = clean_neo4j.execute_query(
+            """
             MATCH path = (p1:Person {name: 'Alice'})-[:KNOWS*]-(p2:Person {name: 'Charlie'})
             RETURN length(path) as path_length
             ORDER BY path_length
             LIMIT 1
-        """)
+        """
+        )
 
         assert len(result) > 0
         assert result[0]["path_length"] >= 2  # Alice -> Bob -> Charlie

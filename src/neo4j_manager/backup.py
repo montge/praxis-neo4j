@@ -40,9 +40,7 @@ class BackupManager:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         return f"{prefix}_{timestamp}.graphml"
 
-    def export_to_graphml(
-        self, filename: Optional[str] = None, include_types: bool = True
-    ) -> str:
+    def export_to_graphml(self, filename: Optional[str] = None, include_types: bool = True) -> str:
         """
         Export database to GraphML format using APOC.
 
@@ -85,9 +83,7 @@ class BackupManager:
             logger.error(f"Export failed: {e}")
             raise
 
-    def import_from_graphml(
-        self, filepath: str, clear_database: bool = False
-    ) -> Dict[str, int]:
+    def import_from_graphml(self, filepath: str, clear_database: bool = False) -> Dict[str, int]:
         """
         Import database from GraphML format using APOC.
 
@@ -151,9 +147,7 @@ class BackupManager:
         Returns:
             List of backup file paths
         """
-        return sorted(
-            self.backup_dir.glob("*.graphml*"), key=lambda p: p.stat().st_mtime
-        )
+        return sorted(self.backup_dir.glob("*.graphml*"), key=lambda p: p.stat().st_mtime)
 
     def get_latest_backup(self) -> Optional[Path]:
         """
