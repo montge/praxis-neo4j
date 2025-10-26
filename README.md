@@ -303,6 +303,19 @@ For other options and help:
 ./scripts/start.sh --help
 ```
 
+## License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+### Third-Party Software
+
+This project uses the following third-party software:
+- **Neo4j Community Edition** (GPLv3) - Not redistributed, used as external database
+- **APOC** (Apache 2.0) - Not redistributed, downloaded during setup
+- **Neo4j Python Driver** (Apache 2.0)
+
+See [NOTICE](NOTICE) file for complete attribution.
+
 ## Attribution
 
-This project includes code that was generated or assisted by [Cursor AI](https://cursor.ai/) tools.
+This project includes code that was generated or assisted by [Claude Code](https://claude.com/claude-code) and [Cursor AI](https://cursor.ai/) tools.
