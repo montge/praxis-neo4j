@@ -3,7 +3,6 @@
 import os
 import pytest
 from dotenv import load_dotenv
-from neo4j import GraphDatabase
 from src.neo4j_manager import Neo4jConnection, BackupManager, HealthChecker
 
 # Load environment variables

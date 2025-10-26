@@ -2,7 +2,7 @@
 
 import logging
 from typing import Optional, Any, Dict, List
-from neo4j import GraphDatabase, Driver, Session
+from neo4j import GraphDatabase, Driver
 from neo4j.exceptions import ServiceUnavailable, AuthError
 
 logger = logging.getLogger(__name__)
