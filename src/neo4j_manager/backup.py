@@ -1,9 +1,11 @@
 """Backup and restore utilities for Neo4j."""
 
+from __future__ import annotations
+
 import logging
 import os
 from datetime import datetime
-from typing import Optional
+from typing import Optional, Dict
 from pathlib import Path
 from .connection import Neo4jConnection
 
