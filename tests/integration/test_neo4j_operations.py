@@ -5,7 +5,7 @@ Run with: pytest tests/integration/ --neo4j-integration
 """
 
 import pytest
-from src.neo4j_manager import Neo4jConnection, HealthChecker
+from src.neo4j_manager import Neo4jConnection
 
 
 pytestmark = pytest.mark.integration

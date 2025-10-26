@@ -11,7 +11,6 @@ Run with: pytest tests/e2e/ --neo4j-integration
 """
 
 import pytest
-from pathlib import Path
 from src.neo4j_manager import Neo4jConnection, BackupManager, HealthChecker
 
 

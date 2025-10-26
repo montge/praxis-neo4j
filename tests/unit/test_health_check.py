@@ -1,6 +1,5 @@
 """Unit tests for HealthChecker class."""
 
-import pytest
 from unittest.mock import Mock, patch
 from neo4j.exceptions import ServiceUnavailable
 from src.neo4j_manager.health_check import HealthChecker
