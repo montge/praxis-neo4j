@@ -1,12 +1,13 @@
 # Neo4j with APOC - Simplified Setup
 
-This repository contains scripts to simplify the setup and management of Neo4j with APOC for thesis work.
+This repository contains scripts to simplify the setup and management of Neo4j with APOC for thesis work, featuring comprehensive test-driven development practices with unit, integration, and end-to-end testing.
 
 ## Requirements
 
 - Docker and Docker Compose
 - Bash shell
-- Python environment (optional, for more advanced scripts)
+- Python 3.11+ (required for Python modules and testing)
+- Make (optional, for convenience commands)
 
 ## Quick Start
 
@@ -22,8 +23,8 @@ This repository contains scripts to simplify the setup and management of Neo4j w
 
 This will:
 1. Fix permissions on directories used by Neo4j
-2. Set up the APOC plugin (version 2025.03.0)
-3. Start Neo4j container (version 2025.03.0)
+2. Set up the APOC plugin (version 2025.09.0)
+3. Start Neo4j container (version 2025.09.0)
 4. Wait for Neo4j to be healthy
 5. Verify APOC installation
 6. Display connection information
@@ -136,6 +137,146 @@ If you cannot log in to Neo4j, check:
 1. The values in your `.env` file match what you're using to connect
 2. If you've changed the password, make sure you've restarted Neo4j afterward
 
+## Python Development
+
+### Installation
+
+```bash
+# Create and activate virtual environment (recommended)
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Or install with development dependencies
+pip install -e ".[dev]"
+```
+
+### Using the Python API
+
+```python
+from src.neo4j_manager import Neo4jConnection, HealthChecker, BackupManager
+
+# Connect to Neo4j
+with Neo4jConnection(uri="bolt://localhost:7687",
+                     username="neo4j",
+                     password="yourpassword") as conn:
+    # Execute queries
+    result = conn.execute_query("MATCH (n) RETURN count(n) as count")
+    print(f"Node count: {result[0]['count']}")
+
+    # Health checks
+    checker = HealthChecker(conn)
+    health = checker.full_health_check()
+    print(f"Connected: {health['connected']}")
+    print(f"APOC Available: {health['apoc_available']}")
+
+    # Backup operations
+    backup_mgr = BackupManager(conn)
+    # backup_mgr.export_to_graphml()  # Requires APOC
+```
+
+## Testing
+
+This project follows test-driven development practices with comprehensive test coverage.
+
+### Test Structure
+
+- **Unit Tests** (`tests/unit/`): Fast, isolated tests with mocked dependencies
+- **Integration Tests** (`tests/integration/`): Tests requiring Neo4j instance
+- **End-to-End Tests** (`tests/e2e/`): Full workflow tests
+
+### Running Tests
+
+#### Using Make (Recommended)
+
+```bash
+# Run unit tests only (fast, no Neo4j needed)
+make test-unit
+
+# Run integration tests (requires Neo4j running)
+make test-integration
+
+# Run end-to-end tests (requires Neo4j running)
+make test-e2e
+
+# Run all tests
+make test-all
+
+# Generate coverage report
+make coverage
+
+# Run code quality checks
+make lint
+
+# Format code
+make format
+```
+
+#### Using pytest directly
+
+```bash
+# Run unit tests only
+pytest tests/unit/ -v
+
+# Run integration tests (Neo4j must be running)
+pytest tests/integration/ -v
+
+# Run e2e tests (Neo4j must be running)
+pytest tests/e2e/ -v
+
+# Run all tests with coverage
+pytest tests/ -v --cov=src --cov-report=html
+
+# Run tests by marker
+pytest -m unit  # Unit tests only
+pytest -m integration  # Integration tests only
+pytest -m e2e  # E2E tests only
+```
+
+### Continuous Integration
+
+Tests run automatically on GitHub Actions for:
+- Every push to `main` or `develop` branches
+- Every pull request
+- Manual workflow dispatch
+
+The CI pipeline includes:
+1. **Unit Tests**: Fast tests with no external dependencies
+2. **Integration Tests**: Tests with Neo4j service container
+3. **E2E Tests**: Complete workflow tests
+4. **Code Quality**: Black, Flake8, and mypy checks
+
+### Test Configuration
+
+- `pytest.ini`: Pytest configuration and markers
+- `pyproject.toml`: Black, mypy, and project configuration
+- `.env.test`: Test environment variables template
+- `tests/conftest.py`: Shared fixtures and test utilities
+
+### Writing Tests
+
+When adding new functionality, follow TDD practices:
+
+1. Write tests first (unit → integration → e2e)
+2. Use descriptive test names following `test_<what>_<condition>` pattern
+3. Follow AAA pattern: Arrange → Act → Assert
+4. Use appropriate fixtures from `conftest.py`
+5. Mark tests with appropriate markers: `@pytest.mark.unit`, `@pytest.mark.integration`, `@pytest.mark.e2e`
+
+Example:
+```python
+import pytest
+
+@pytest.mark.unit
+def test_connection_initialization_with_defaults():
+    """Test Neo4jConnection initializes with default values."""
+    conn = Neo4jConnection()
+    assert conn.uri == "bolt://localhost:7687"
+    assert conn.username == "neo4j"
+```
+
 ## Advanced Usage
 
 For other options and help:
@@ -143,6 +284,7 @@ For other options and help:
 ```bash
 ./scripts/start.sh --help
 ```
+
 ## Attribution
 
 This project includes code that was generated or assisted by [Cursor AI](https://cursor.ai/) tools.

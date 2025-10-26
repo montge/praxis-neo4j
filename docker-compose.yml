@@ -1,6 +1,6 @@
 services:
   neo4j:
-    image: neo4j:2025.03.0
+    image: neo4j:2025.09.0
     ports:
       - "0.0.0.0:7474:7474"  # HTTP
       - "0.0.0.0:7687:7687"  # Bolt

@@ -37,7 +37,7 @@ setup_apoc() {
     log_info "Setting up APOC plugin..."
     
     # Define APOC version
-    APOC_VERSION="2025.03.0"
+    APOC_VERSION="2025.09.0"
     APOC_FILE="apoc-${APOC_VERSION}-core.jar"
     APOC_URL="https://github.com/neo4j/apoc/releases/download/${APOC_VERSION}/${APOC_FILE}"
     
