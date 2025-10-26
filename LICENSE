@@ -19,19 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-This project uses the following third-party software:
-
-- Neo4j Community Edition - Licensed under GPLv3
-  https://github.com/neo4j/neo4j/blob/5.0/LICENSE.txt
-
-- APOC (Awesome Procedures On Cypher) - Licensed under Apache License 2.0
-  https://github.com/neo4j/apoc/blob/5.0/LICENSE.txt
-
-- Neo4j Python Driver - Licensed under Apache License 2.0
-  https://github.com/neo4j/neo4j-python-driver/blob/5.0/LICENSE.txt
-
-This project does not redistribute Neo4j or APOC; it provides management
-scripts and utilities that work with these components.
