@@ -6,16 +6,18 @@ This repository contains scripts to simplify the setup and management of Neo4j w
 
 - Docker and Docker Compose
 - Bash shell
-- **Python 3.11 or 3.12** (LTS versions, required for Python modules and testing)
+- **Python 3.11, 3.12, 3.13, or 3.14** (supported versions, required for Python modules and testing)
 - Make (optional, for convenience commands)
 
 ### Python Version Support
 
-This project supports Python LTS versions:
+This project supports Python 3.11 through 3.14:
 - ✅ **Python 3.11.x** (LTS until October 2027)
-- ✅ **Python 3.12.x** (Latest stable)
+- ✅ **Python 3.12.x** (LTS until October 2028)
+- ✅ **Python 3.13.x** (Released October 2024, LTS until October 2029)
+- ✅ **Python 3.14.x** (Latest, released October 2025)
 
-All tests run against both versions in CI/CD.
+All tests run against all four versions in CI/CD.
 
 ## Quick Start
 

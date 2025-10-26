@@ -190,6 +190,11 @@ This repository is designed for WSL environments where permission issues are com
 ## Development Notes
 
 ### Python Dependencies
+
+**Supported Python Versions:** 3.11, 3.12, 3.13, 3.14
+- All versions tested in CI/CD matrix
+- LTS support until 2027-2029
+
 Core:
 - `neo4j>=5.26.0` - Neo4j Python driver
 - `python-dotenv>=1.0.1` - Environment variable management
