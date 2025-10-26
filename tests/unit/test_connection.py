@@ -104,9 +104,7 @@ class TestNeo4jConnectionQueries:
         params = {"name": "Alice"}
         conn.execute_query("MATCH (n {name: $name}) RETURN n", params)
 
-        mock_session.run.assert_called_once_with(
-            "MATCH (n {name: $name}) RETURN n", params
-        )
+        mock_session.run.assert_called_once_with("MATCH (n {name: $name}) RETURN n", params)
 
 
 class TestNeo4jConnectionContextManager:
