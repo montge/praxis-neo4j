@@ -1,5 +1,12 @@
 # Neo4j with APOC - Simplified Setup
 
+[![CI/CD](https://github.com/montge/praxis-neo4j/actions/workflows/test.yml/badge.svg)](https://github.com/montge/praxis-neo4j/actions/workflows/test.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue.svg)](https://www.python.org/downloads/)
+[![Code Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen.svg)](https://github.com/montge/praxis-neo4j)
+[![Neo4j 2025.09.0](https://img.shields.io/badge/Neo4j-2025.09.0-008CC1.svg)](https://neo4j.com/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 This repository contains scripts to simplify the setup and management of Neo4j with APOC for thesis work, featuring comprehensive test-driven development practices with unit, integration, and end-to-end testing.
 
 ## Requirements
